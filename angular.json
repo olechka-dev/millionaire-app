@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "millionaire-app"
+    }
+  },
+  "defaultProject": "millionaire-app",
+  "cli": {
+    "analytics": "3923e08d-8133-4457-84bc-6309b2ebf9f1"
+  }
 }
