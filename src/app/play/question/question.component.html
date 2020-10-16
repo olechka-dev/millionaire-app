@@ -1,0 +1,28 @@
+<div class="question-container">
+    <div class="question">
+        <span class="q-number">Q:1</span>
+        <div class="question-text">Which sea creatures has 3 hearts?</div>
+    </div>
+    <div class="timer">
+        <span class="timer-text">Time:</span>
+        <img [src]="'/assets/sand-clock.png'">
+        <span class="timer-value">20 SECONDS</span>
+    </div>
+</div>
+<div class="answers-container">
+    <div class="answers">
+        <button class="selected" *ngFor="let answer of answers">{{answer}}</button>
+    </div>
+</div>
+
+<div class="action-buttons">
+    <ng-container *ngIf="!showMessage">
+        <button [disabled]="false" class="ok-btn">OK</button>
+        <div class="skip">
+            <button class="skip-btn">SKIP</button>
+            <p>3 REMAINING</p>
+        </div>
+    </ng-container>
+    <div *ngIf="showMessage" class="msg">WRONG! Prepare for the next question...</div>
+
+</div>

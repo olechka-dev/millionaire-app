@@ -1,0 +1,31 @@
+:host {
+    display: block;
+    .dot-container {
+        display: flex;
+        justify-content: center;
+        .dot {
+            width: 10px;
+            height: 10px;
+            margin: 20px 14px;
+            background: #C9CFD3;
+            border-radius: 5px;
+
+
+            &.passed {
+                background: #0D7BAB;;
+            }
+        }
+    }
+
+
+    .footer {
+        background-image: url(/assets/logo.png), url(/assets/blue-bg.png);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 220px, cover;
+        width: 100vw;
+        height: 80px;
+        position: absolute;
+        bottom: 0;
+    }
+}
