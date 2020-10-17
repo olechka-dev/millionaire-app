@@ -1,5 +1,7 @@
 import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { PlayComponent } from './play/play/play.component';
+import { OverGuard } from './core/services/guards/over.guard';
 
 
 const routes: Routes = [
@@ -10,13 +12,13 @@ const routes: Routes = [
     },
     {
         path: 'play',
-        loadChildren: () => import('./play/play.module').then(m => m.PlayModule)
+        component: PlayComponent
     },
-
-    // {
-    //     path: 'dash',
-    //     component: DashboardComponent
-    // },
+    {
+        path: 'over',
+        loadChildren: () => import('./game-over/game-over.module').then(m => m.GameOverModule),
+        canLoad: [OverGuard]
+    },
     {
         path: '**',
         redirectTo: 'play',

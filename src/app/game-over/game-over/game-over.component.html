@@ -1,0 +1,15 @@
+<ng-container *ngIf="status$ | async as status">
+    <div class="game-over" [ngClass]="{'big': status.correctCount !== status.totalCount }">GAME OVER</div>
+    <div *ngIf="status.correctCount === status.totalCount" class="amazing">AMAZING!!!</div>
+    <div class="text-container">
+        <div class="answered-text">YOU ANSWERED CORRECTLY ON:</div>
+        <div class="answered-count" [ngClass]="{'white': status.correctCount !== status.totalCount }">{{status.correctCount}} OUT OF {{status.totalCount}} QUESTIONS</div>
+    </div>
+    <form (submit)="onNameSubmit()">
+        <div class="enter-name">Enter Your Name</div>
+        <div class="input-container">
+            <input [formControl]="name" placeholder="Type something">
+            <button type="submit" [disabled]="name.pristine || name.invalid">SAVE</button>
+        </div>
+    </form>
+</ng-container>
