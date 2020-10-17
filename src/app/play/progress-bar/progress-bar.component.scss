@@ -1,12 +1,17 @@
 :host {
     display: block;
+    position: absolute;
+    bottom: 0;
     .dot-container {
         display: flex;
         justify-content: center;
+        padding-bottom: 15px;
+        background: #ffffff;
+
         .dot {
             width: 10px;
             height: 10px;
-            margin: 20px 14px;
+            margin: 20px 10px;
             background: #C9CFD3;
             border-radius: 5px;
 
@@ -25,7 +30,5 @@
         background-size: 220px, cover;
         width: 100vw;
         height: 80px;
-        position: absolute;
-        bottom: 0;
     }
 }

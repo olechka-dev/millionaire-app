@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-progress-bar',
@@ -6,14 +6,15 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./progress-bar.component.scss']
 })
 export class ProgressBarComponent implements OnInit {
-    progressArr = [
-        true, true, false, false, false, false, false, false, false, false, false, false
-    ];
+    @Input() curNumber: number;
+    @Input() totalCount: number;
+    statusDots = [];
 
     constructor() {
     }
 
     ngOnInit(): void {
+        this.statusDots = new Array(this.totalCount).fill(true);
     }
 
 }

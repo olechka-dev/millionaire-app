@@ -2,8 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { appRouter } from './app-routing.module';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
     declarations: [
@@ -12,10 +12,7 @@ import { appRouter } from './app-routing.module';
     imports: [
         BrowserModule,
         appRouter,
-        StoreDevtoolsModule.instrument({
-            maxAge: 25,
-            logOnly: false
-        })
+        CoreModule
     ],
     providers: [],
     bootstrap: [AppComponent]

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { PlayStatus } from '../../core/types/play.types';
+import { MAX_LIVES } from '../../core/store/status/reducers';
 
 @Component({
     selector: 'app-status',
@@ -7,12 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StatusComponent implements OnInit {
 
-    lives = [1, 1, 1];
+    @Input() status: PlayStatus;
+
+    lives = [];
 
     constructor() {
     }
 
     ngOnInit(): void {
+        this.lives = new Array(MAX_LIVES).fill(true);
     }
 
 }

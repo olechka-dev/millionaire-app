@@ -1,0 +1,45 @@
+:host {
+    display: flex;
+    min-width: 220px;
+    .timer-text {
+        display: flex;
+        font-size: 18px;
+        line-height: 34px;
+        color: #223336;
+        img {
+            height: 25px;
+            margin: 2px 5px 0 5px;
+        }
+    }
+
+    .timer-value {
+        color: #0D7BAB;
+        font-size: 24px;
+        line-height: 33px;
+        &.warning {
+            color: #FB4343;
+        }
+    }
+
+
+    @media (min-width: 1536px) {
+
+        .timer-text {
+            font-size: 24px;
+            line-height: 50px;
+            img {
+                height: 30px;
+                margin: 8px 5px 0 5px;
+            }
+        }
+
+
+
+        .timer-value {
+            font-size: 32px;
+            line-height: 48px;
+        }
+
+    }
+
+}

@@ -1,5 +1,5 @@
 <div class="dot-container">
-    <div *ngFor="let isPassed of progressArr" class="dot" [ngClass]="{'passed': isPassed}">
+    <div *ngFor="let dot of statusDots; let i = index" class="dot" [ngClass]="{'passed': i <= curNumber}">
     </div>
 </div>
 

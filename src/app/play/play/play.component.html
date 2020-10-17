@@ -1,3 +1,5 @@
-<app-status></app-status>
+<app-status [status]="status$ | async"></app-status>
 <app-question></app-question>
-<app-progress-bar></app-progress-bar>
+<ng-container *ngIf="status$ | async as status">
+    <app-progress-bar *ngIf="status.totalCount" [curNumber]="status.curQuestionNumber" [totalCount]="status.totalCount"></app-progress-bar>
+</ng-container>

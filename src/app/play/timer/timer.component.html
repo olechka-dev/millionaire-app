@@ -1,0 +1,7 @@
+<div class="timer-text">
+    <span>Time:</span>
+    <span>
+        <img [src]="secLeft <=5 ? '/assets/sand-clock-red.png' : '/assets/sand-clock.png'">
+    </span>
+</div>
+<span class="timer-value" [ngClass]="{'warning': secLeft <=5 }">{{secLeft}} SECONDS</span>

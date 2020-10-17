@@ -1,28 +1,41 @@
-<div class="question-container">
-    <div class="question">
-        <span class="q-number">Q:1</span>
-        <div class="question-text">Which sea creatures has 3 hearts?</div>
-    </div>
-    <div class="timer">
-        <span class="timer-text">Time:</span>
-        <img [src]="'/assets/sand-clock.png'">
-        <span class="timer-value">20 SECONDS</span>
-    </div>
-</div>
-<div class="answers-container">
-    <div class="answers">
-        <button class="selected" *ngFor="let answer of answers">{{answer}}</button>
-    </div>
-</div>
-
-<div class="action-buttons">
-    <ng-container *ngIf="!showMessage">
-        <button [disabled]="false" class="ok-btn">OK</button>
-        <div class="skip">
-            <button class="skip-btn">SKIP</button>
-            <p>3 REMAINING</p>
+<ng-container *ngIf="questionData$ | async as questionData">
+    <div class="question-container">
+        <div class="question">
+            <span class="q-number">Q:{{(curQuestNum$ | async) + 1}}</span>
+            <div class="question-text" [innerHTML]="questionData.question"></div>
         </div>
-    </ng-container>
-    <div *ngIf="showMessage" class="msg">WRONG! Prepare for the next question...</div>
+        <app-timer [questionId]="questionData.id" [isAnswered]="curStatus !== 'NOT_ANSWERED'" (onTimeBreakpoint)="onTimeUpdate($event)"></app-timer>
+    </div>
+    <div class="answers-container">
+        <div class="answers">
+            <button *ngFor="let answer of questionData.answers"
+                    [innerHTML]="answer"
+                    [disabled]="curStatus !== 'NOT_ANSWERED'"
+                    [ngClass]="{'selected': curStatus === 'NOT_ANSWERED' && answer === selectedAnswer,
+                                'correct': curStatus === 'CORRECT' && answer === selectedAnswer,
+                                'wrong': curStatus === 'WRONG' && answer === selectedAnswer}"
+                    (click)="selectAnswer(answer)"
+            >
+            </button>
+        </div>
+    </div>
 
-</div>
+    <div class="action-buttons">
+        <ng-container *ngIf="curStatus === 'NOT_ANSWERED'">
+            <button [disabled]="!selectedAnswer" class="ok-btn"
+                    (click)="submitAnswer()">OK
+            </button>
+            <div class="skip" *ngIf="skippedLeft$ | async as skippedLeft">
+                <ng-container *ngIf="showSkip">
+                    <button (click)="skipQuestion()" class="skip-btn">SKIP</button>
+                    <p>{{skippedLeft}} REMAINING</p>
+                </ng-container>
+            </div>
+        </ng-container>
+        <div *ngIf="curStatus !== 'NOT_ANSWERED'" class="msg">{{ curStatus === 'CORRECT' ?
+            'GOOD JOB!!! Prepare for the next question...' :
+            (curStatus === 'TIME_OUT' ? 'TIMES UP :( Prepare for the next question...' : 'WRONG! Prepare for the next question...')}}
+        </div>
+
+    </div>
+</ng-container>
