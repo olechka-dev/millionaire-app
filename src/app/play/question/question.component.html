@@ -4,7 +4,7 @@
             <span class="q-number">Q:{{(curQuestNum$ | async) + 1}}</span>
             <div class="question-text" [innerHTML]="questionData.question"></div>
         </div>
-        <app-timer [questionId]="questionData.id" [isAnswered]="curStatus !== 'NOT_ANSWERED'" (onTimeBreakpoint)="onTimeUpdate($event)"></app-timer>
+        <app-timer [questionId]="questionData.id" [isAnswered]="curStatus !== 'NOT_ANSWERED'" [isOver]="isGameOver$ | async" (onTimeBreakpoint)="onTimeUpdate($event)"></app-timer>
     </div>
     <div class="answers-container">
         <div class="answers">

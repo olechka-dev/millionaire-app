@@ -25,7 +25,7 @@ export class PlayComponent implements OnInit {
             select(selectStatusState),
             tap((status) => {
                 if (status.lives === 0 || (status.totalCount && status.curQuestionNumber === status.totalCount)) {
-                    this.router.navigateByUrl('/over');
+                    this.router.navigate(['', { outlets: { 'game-over': 'over' } }]);
                 }
             })
         );

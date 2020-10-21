@@ -8,6 +8,7 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 export class TimerComponent implements OnChanges {
     @Input() questionId: number;
     @Input() isAnswered: boolean;
+    @Input() isOver: boolean;
 
     @Output() onTimeBreakpoint = new EventEmitter();
 
@@ -24,6 +25,10 @@ export class TimerComponent implements OnChanges {
 
         if (changes.isAnswered && changes.isAnswered.currentValue !== changes.isAnswered.previousValue &&
             changes.isAnswered.currentValue === true) {
+            clearInterval(this.interval);
+        }
+
+        if (changes.isOver && changes.isOver.currentValue === true) {
             clearInterval(this.interval);
         }
     }

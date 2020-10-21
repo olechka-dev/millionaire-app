@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { selectCurQuestion, selectQuestionNum, selectSkippedNum } from '../../core/store';
+import { selectCurQuestion, selectQuestionNum, selectSkippedNum, selectStatusState } from '../../core/store';
 import { Observable } from 'rxjs';
 import { AppState, Question } from '../../core/types/play.types';
-import { filter, tap } from 'rxjs/operators';
+import { filter, map, take, takeUntil, tap } from 'rxjs/operators';
 import { updateStatus } from '../../core/store/status/actions';
 
 type AnswerStatus = 'NOT_ANSWERED' | 'CORRECT' | 'WRONG' | 'TIME_OUT';
@@ -16,6 +16,8 @@ type AnswerStatus = 'NOT_ANSWERED' | 'CORRECT' | 'WRONG' | 'TIME_OUT';
 export class QuestionComponent implements OnInit {
     curQuestNum$: Observable<number>;
     skippedLeft$: Observable<number>;
+    isGameOver$: Observable<boolean>;
+
     selectedAnswer: string;
     correctAnswer: string;
     showSkip = false;
@@ -27,14 +29,23 @@ export class QuestionComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.isGameOver$ = this.store.pipe(
+            select(selectStatusState),
+            map((status) => !!(status.lives === 0 || (status.totalCount && status.curQuestionNumber === status.totalCount))),
+            filter(isOver => isOver),
+            take(1)
+        );
         this.curQuestNum$ = this.store.pipe(
-            select(selectQuestionNum)
+            select(selectQuestionNum),
+            takeUntil(this.isGameOver$)
         );
         this.skippedLeft$ = this.store.pipe(
-            select(selectSkippedNum)
+            select(selectSkippedNum),
+            takeUntil(this.isGameOver$)
         );
         this.questionData$ = this.store.pipe(
             select(selectCurQuestion),
+            takeUntil(this.isGameOver$),
             filter((question) => !!question),
             tap((question) => {
                 this.correctAnswer = question.correct_answer;
@@ -43,6 +54,9 @@ export class QuestionComponent implements OnInit {
                 this.showSkip = false;
             })
         );
+
+
+
     }
 
     selectAnswer(answer) {

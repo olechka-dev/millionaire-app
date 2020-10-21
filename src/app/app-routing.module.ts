@@ -17,6 +17,7 @@ const routes: Routes = [
     {
         path: 'over',
         loadChildren: () => import('./game-over/game-over.module').then(m => m.GameOverModule),
+        outlet: 'game-over',
         canLoad: [OverGuard]
     },
     {
